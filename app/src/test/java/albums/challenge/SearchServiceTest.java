@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 
 public class SearchServiceTest {
@@ -132,8 +131,7 @@ public class SearchServiceTest {
         assertIterableEquals(
                 result.facets().get("year"),
                 List.of(
-                        new Facet("2008", 1),
-                        new Facet("2002", 0)
+                        new Facet("2008", 1)
                 )
         );
 

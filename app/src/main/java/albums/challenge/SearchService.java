@@ -1,32 +1,38 @@
 package albums.challenge;
 
-import albums.challenge.models.Entry;
-import albums.challenge.models.Facet;
-import albums.challenge.models.Results;
-import org.springframework.stereotype.Service;
+import static albums.challenge.aggregations.Aggregator.getPriceAggregations;
+import static albums.challenge.aggregations.Aggregator.getYearAggregations;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.stereotype.Service;
+
+import albums.challenge.filters.CompositeFilter;
+import albums.challenge.filters.PriceFilter;
+import albums.challenge.filters.YearFilter;
+import albums.challenge.models.Entry;
+import albums.challenge.models.Results;
+
 @Service
 public class SearchService {
+
     Results search(List<Entry> entries, String query) {
         return search(entries, query, List.of(), List.of());
     }
 
     Results search(List<Entry> entries, String query, List<String> year, List<String> price) {
+        var filteredEntries = query.isBlank() ? entries : filterByQuery(entries, query);
+        var resultList = new CompositeFilter(
+                List.of(new YearFilter(year), new PriceFilter(price)))
+                .filter(filteredEntries);
+
         return new Results(
-                query.isBlank() ? entries : filterByQuery(entries, query),
+                resultList,
                 Map.ofEntries(
-                        Map.entry("year", List.of(
-                                new Facet("2002", 25),
-                                new Facet("2008", 2)
-                        )),
-                        Map.entry("price", List.of(
-                                new Facet("5 - 10", 25),
-                                new Facet("10 - 15", 2)
-                        ))
+                        Map.entry("year", getYearAggregations(new PriceFilter(price).filter(filteredEntries))),
+                        Map.entry("price", getPriceAggregations(new YearFilter(year).filter(filteredEntries)))
                 ),
                 query
         );
