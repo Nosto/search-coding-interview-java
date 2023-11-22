@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="albums.challenge.filters.year.YearFilterFactoryTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-11-22T16:13:41" hostname="Georgs-MacBook-Pro.local" time="0.002">
-  <properties/>
-  <testcase name="fromEntry_parsesDate()" classname="albums.challenge.filters.year.YearFilterFactoryTest" time="0.001"/>
-  <testcase name="fromValue_parsesFromValueCorrectly()" classname="albums.challenge.filters.year.YearFilterFactoryTest" time="0.0"/>
-  <testcase name="fromEntry_throwsExceptionWhenCannotParseDate()" classname="albums.challenge.filters.year.YearFilterFactoryTest" time="0.0"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
