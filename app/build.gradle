@@ -1,14 +1,14 @@
 plugins {
     id 'java'
-    id 'org.springframework.boot' version '3.1.5'
+    id 'org.springframework.boot' version "$springVersion"
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web:3.1.5'
-    implementation 'org.springframework.boot:spring-boot-starter-cache:3.1.5'
-    compileOnly 'org.springframework.boot:spring-boot-devtools:3.1.5'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.1.5'
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.9.2'
+    implementation "org.springframework.boot:spring-boot-starter-web:$springVersion"
+    implementation "org.springframework.boot:spring-boot-starter-cache:$springVersion"
+    compileOnly "org.springframework.boot:spring-boot-devtools:$springVersion"
+    testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher:6.0.3'
 }
 
 repositories {
