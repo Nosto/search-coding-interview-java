@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.json.JacksonJsonHttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,13 +21,13 @@ public class DataService {
     String uri = "https://itunes.apple.com/us/rss/topalbums/limit=200/json";
 
     @Cacheable("entry")
-    List<Entry> fetch() {
+    public List<Entry> fetch() {
         logger.info("Fetching data");
 
         var restTemplate = new RestTemplate();
         var converters = restTemplate.getMessageConverters();
         converters.forEach(converter -> {
-            if (converter instanceof MappingJackson2HttpMessageConverter jsonConverter) {
+            if (converter instanceof JacksonJsonHttpMessageConverter jsonConverter) {
                 jsonConverter.setSupportedMediaTypes(Arrays.asList(
                         new MediaType("application", "json", Charset.defaultCharset()),
                         new MediaType("text", "javascript", Charset.defaultCharset())
